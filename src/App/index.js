@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocalStorage } from './useLocalStorage';
 import { TodoCounter } from '../TodoCounter';
 import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
@@ -13,28 +14,6 @@ import { CreateTodoButton } from '../CreateTodoButton';
 //   { text: 'LALALALALA', completed: false },
 // ];
 
-function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-
-  let parsedItem;
-  
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-  
-  const [item, setItem] = React.useState(parsedItem);
-
-  const saveItem = (newItem) => {
-    localStorage.setItem(itemName, JSON.stringify(newItem));
-    
-    setItem(newItem);
-  };
-
-  return[item, saveItem];
-}
 
 function App() {
 
