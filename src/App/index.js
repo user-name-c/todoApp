@@ -30,8 +30,25 @@ function App() {
     }
   );
 
-  console.log('Los usuarios buscan todos de ' + searchValue);
+  // console.log('Los usuarios buscan todos de ' + searchValue);
+  console.log('Log 1');
 
+  // // se ejecuta despues de cada render
+  // React.useEffect(() => {
+  //   console.log('Loooooooog 2');
+  // });
+
+  // // se ejecuta solo una vez
+  // React.useEffect(() => {
+  //   console.log('Loooooooog 2');
+  // }, []);
+
+  // se ejecuta al cambiar totalTodos
+  React.useEffect(() => {
+    console.log('Loooooooog 2');
+  }, [totalTodos]);
+
+  console.log('Log 3');
 
   const completeTodo = (text) => {
     const newTodos = [...todos];
