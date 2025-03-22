@@ -4,7 +4,7 @@ import { useLocalStorage } from './useLocalStorage';
 const TodoContext = React.createContext();
 
 function TodoProvider ({children}){
-    const [todos, setTodos, loading, error] = useLocalStorage('TODOS_V1', []);
+    const [todos, saveTodos, loading, error] = useLocalStorage('TODOS_V1', []);
     const [searchValue, setSearchValue] = React.useState('');
     const [openModal, setOpenModal] = React.useState(false);
     
@@ -21,13 +21,23 @@ function TodoProvider ({children}){
         return todoText.includes(searchText);
       }
     );
+
+    const addTodo = (text) => {
+      const newTodos = [...todos];
+      newTodos.push({
+        text,
+        completed: false,
+      });
+      saveTodos(newTodos);
+    };
+
     const completeTodo = (text) => {
         const newTodos = [...todos];
         const todoIndex = newTodos.findIndex(
           (todo) => todo.text == text
         );
         newTodos[todoIndex].completed = true;
-        setTodos(newTodos);
+        saveTodos(newTodos);
     };
     
     const deleteTodo = (text) => {
@@ -36,7 +46,7 @@ function TodoProvider ({children}){
         (todo) => todo.text ==text
     );
     newTodos.splice(todoIndex,1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
     };
 
     return(
@@ -52,6 +62,7 @@ function TodoProvider ({children}){
         deleteTodo,
         openModal,
         setOpenModal,
+        addTodo,
     }}>
       {children}
     </TodoContext.Provider>
