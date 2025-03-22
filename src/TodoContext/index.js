@@ -52,7 +52,9 @@ function TodoProvider ({children}){
         deleteTodo,
         openModal,
         setOpenModal,
-    }}>{children}</TodoContext.Provider>
+    }}>
+      {children}
+    </TodoContext.Provider>
     );
 }
 
